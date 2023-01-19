@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Api extends Controller
 {
@@ -46,5 +47,57 @@ class Api extends Controller
             ->update($input);
            }
         }        
+    }    
+
+    public function token(){
+        $input["user_email"]=request()->get("email");
+        $password=request()->get("password");
+        $login=DB::table('user')
+        ->where($input)
+        ->get();
+        // echo $login->count();
+        if($login->count()>0){
+            foreach ($login as $value) {
+                if (Hash::check($password,$value->password)) {
+                    $data["token"]=md5(date("d").substr($value->password,6).date("Ym"));
+                    $data["status"]=Hash::check($password,$value->password);
+                    return response()->json($data, 200);  
+                }else{
+                    $data["status"]=Hash::check($password,$value->password);
+                    return response()->json($data, 401);  
+                }
+            }
+        }else{
+           echo "Data tidak ditemukan!"; 
+        }
+    }
+
+    public function cektoken(){
+        $akses=0;
+        $input["user_email"]=request()->get("email");
+        $token=request()->get("token");
+        $login=DB::table('user')
+        ->where($input)
+        ->get();
+         
+        if($login->count()>0){
+            foreach ($login as $value) {
+                $tokenasli=md5(date("d").substr($value->password,6).date("Ym"));
+                if($tokenasli==$token){
+                    $data["message"]="Token Valid";
+                    $data["status"]=true;  
+                    return response()->json($data, 200);              
+                }else{
+                    $data["message"]="Token tidak Valid";
+                    $data["status"]=false;
+                    return response()->json($data, 401);
+                }
+                // echo $tokenasli."==".$token;
+            }
+        }else{
+            $data["message"]="Email tidak Valid";
+            $data["status"]=false;
+            return response()->json($data, 401);
+        }
     }
 }

@@ -252,41 +252,17 @@ class Modle extends Model
     {
         if(isset($_POST["submit"])){
             foreach (request()->all() as $e => $f) {
-                if ($e != 'id' && $e != 'product_name' && $e != 'submit') {
+                if ($e != 'id' && $e != '_token' && $e != 'submit') {
                     $input[$e] = request()->get($e);
                 }
             }
-            //penomoran
-            $nom = DB::table("transaction")
-            ->where("transaction_date", date("Y-m-d"))
-            ->orderBy("transaction_id", "DESC")
-            ->limit("1")
-            ->get();
-            if ($nom->count() > 0) {
-                $noakhir = $nom->first()->transaction_no;
-                $noakh = explode(".", $noakhir);
-                if ($noakh[2] > 9999) {
-                    $noak = 1;
-                } else {
-                    $noak = $noakh[2] + 1;
-                }
-                $noa = str_pad($noak, 4, "0", STR_PAD_LEFT);
-            } else {
-                $noa = str_pad(1, 4, "0", STR_PAD_LEFT);
-            }
-            $nomor = array();
-            $nomor[1] = "QTH";
-            $nomor[2] = date("Ymd");
-            $nomor[3] = $noa;
-            $nomoran = implode(".", $nomor);
-            $input["transaction_no"]=$nomoran;
-            $input["transaction_status"]=2;
-            $input["transaction_message"]=1;
-            $input["transaction_date"]=date("Y-m-d");
-            $input["updated_at"]=date("Y-m-d H:i:s");
-            DB::table('transaction')->insert($input);
+            
+            $input["tranprod_active"]=1;
+            $input["tranprod_date"]=date("Y-m-d");
+            $input["tranprod_outdate"]=date("Y-m-d");
+            DB::table('tranprod')->insert($input);
             $input["view0"]="kirimwa";
-            $input["view1"]='number=owner&title=Konfirmasi Pembayaran&pesan=Insyaallah kami akan memverikasi pembayaran anda secepat mungkin.&message='.$input["updated_at"].'-- Konfirmasi pembayaran dari '.Auth()->user()->user_name.',  Pembayaran : '.request()->get("product_name").',  Dari Bank : '.$input['transaction_bankpengirim'].',  Ke Bank : '.$input['transaction_bankpenerima'].',  Atas Nama : '.$input['transaction_an'].',  Sejumlah : '.$input['transaction_pay'];
+            $input["view1"]='number=owner&title=Tambah Layanan&pesan=Tambah Layanan Berhasil.&message='.date("Y-m-d H:i:s").'-- Tambah Layanan dari '.Auth()->user()->user_name.',  Server : '. $input["tranprod_no"].',  Keterangan : '.$input['tranprod_note'];
             $data=$input;
         }else{
             $data=array();

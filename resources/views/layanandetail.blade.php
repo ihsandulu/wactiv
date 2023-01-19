@@ -48,17 +48,12 @@
                     <h1 class="card-title text-center text-bold text-success">{{ $product->product_name }}</h1>
                     <h3 class="card-title text-center text-bold text-primary">{{ $product->tranprod_no }}</h3>
                     <div class="d-grid gap-2">
-                        <div align="center">Start of Date : <b>{{ date("d M, Y",strtotime($product->tranprod_date)); }}</b></div>
                         <?php 
                         $tgl1 = strtotime(date("Y-m-d")); 
                         $tgl2 = strtotime($product->tranprod_outdate);                         
                         $jarak = $tgl2 - $tgl1;                        
                         $hari = $jarak / 60 / 60 / 24;
-                        if($hari<=7){$peringatan="bahaya";}else{$peringatan="aman";}?>
-                        <div align="center" class="<?=$peringatan;?>">Out of Date : <b>{{ date("d M, Y",strtotime($product->tranprod_outdate)); }}</b></div>
-                        <?php if($peringatan=="bahaya"){?>
-                        <a href="{{ url("/perpanjangan?id=".$product->tranprod_id) }}" class="btn btn-success btn-block">Perpanjang Lisensi {{ $product->tranprod_no }}</a>
-                        <?php }else{?>
+                        if($hari<=7){$peringatan="bahaya";}else{$peringatan="aman";}?>  
                         <div class="row" id="barcode1">
                             <?php 
                             $str=$product->product_name;
@@ -68,7 +63,6 @@
                             ?>
                             <iframe class="col-md-12 iframe" frameBorder="0" title="Api Whatsapp" src="<?=$src;?>" ></iframe>
                         </div>
-                        <?php }?>
                     </div>
                 </div>
             </div>

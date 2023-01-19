@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Qithy Whatsapp</title>
+      <title>Whatsapp Server</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -22,7 +22,7 @@
       <!-- Responsive-->
       <link rel="stylesheet" href="css/responsive.css">
       <!-- fevicon -->
-      <link rel="icon" href="images/tokoqit_logo.png" type="image/gif" />
+      <link rel="icon" href="images/logo.png" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
@@ -72,7 +72,7 @@
    @include('templates/navbar')
    @yield('container')
    <!--  footer -->
-   <footer class="mt-5">
+     <!--  <footer class="mt-5">
          <div class="footer">
             <div class="container">
                <div class="row">
@@ -140,7 +140,7 @@
                </div>
             </div>
          </div>
-      </footer>
+      </footer> -->
       <!-- end footer -->
 
 
@@ -173,6 +173,7 @@
             "lengthMenu": [[100, "All", 50, 25], [100, "All", 50, 25]]
             } );
          } );              
+   
    </script>
     @yield("footer")
     <!-- Optional JavaScript; choose one of the two! -->

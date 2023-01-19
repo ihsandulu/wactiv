@@ -30,17 +30,17 @@
           <input value="{{ old('remember') }}" name="remember" type="checkbox" class="" id="remember">         
         </div>
         <div class="row">        
-          <div class="col-md-4">          
+          <div class="col-md-6">          
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <a class="text-success mt-2 d-flex justify-content-center align-items-center" href="{{url('/register')}}">Register</a>
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <a class="text-success mt-2"  style="float:right;" href="{{url('/redirectgoogle')}}">
               <img src="<?=url('images/google.png');?>" style="height:30px; width:auto;" />
             </a>
-          </div>
+          </div> -->
         </div>
       </form>
     </div>

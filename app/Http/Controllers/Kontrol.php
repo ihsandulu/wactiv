@@ -20,11 +20,13 @@ class Kontrol extends Controller
         // echo Auth::check();
         // die;
         if (Auth::check()) {
-            return view('home');
+            return view('layanan');
         } else {
             return view('halo');
         }
     }
+    
+
     public function logout()
     {
         Auth::logout();
@@ -52,7 +54,7 @@ class Kontrol extends Controller
                 foreach ($identitys as $identity) {
                     $request->session()->put('number', $identity->identity_wa);
                 }
-                return redirect()->intended('home')->with(['message' => 'Selamat Datang ' . auth()->user()->user_name, 'tipe' => 'success']);
+                return redirect()->intended('layanan')->with(['message' => 'Selamat Datang ' . auth()->user()->user_name, 'tipe' => 'success']);
             } else {
                 return redirect()->intended('login')->with(['message' => 'Email atau Password tidak benar!', 'tipe' => 'error']);
             }
@@ -201,7 +203,7 @@ class Kontrol extends Controller
         if($finduser){
     
             Auth::login($finduser);
-                return redirect()->intended('home')->with(['message' => 'Selamat Datang ' . auth()->user()->user_name, 'tipe' => 'success']);
+                return redirect()->intended('layanan')->with(['message' => 'Selamat Datang ' . auth()->user()->user_name, 'tipe' => 'success']);
         }
             
                 

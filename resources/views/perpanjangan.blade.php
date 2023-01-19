@@ -31,82 +31,33 @@
 <div class="container mt-5">
     <div class="row mb-3">
         <div class="col-md-6" >
-            <h1 class="text-bold">Konfirmasi Pembayaran</h1>
+            <h1 class="text-bold">Tambah Layanan</h1>
         </div>
         <div align="right" class="col-md-6 m-0 mb-3"><a href="{{ url('/layanan') }}" class="btn btn-warning fa fa-mail-forward"> Kembali</a></div>
     </div>
    
     <div class="row">
-        <?php 
-        $products = DB::table('tranprod')
-        ->leftJoin("product","product.product_id","=","tranprod.product_id")
-        ->where("tranprod_id",$_GET["id"])
-        ->orderBy('product_name')        
-        ->get();
-        ?>
-        @foreach ($products as $product)
         <div class="col-md-12 p-1" >
             <div class="card p-3" >
-                <img src="{{ url("/images/product_picture/".$product->product_picture) }}" class="card-img-top top-right" alt="{{ $product->product_name }}">
+                
                 <div class="card-body mt-4">
-                    <h1 class="card-title text-center text-bold text-success">{{ $product->product_name }}</h1>
-                    <h3 class="card-title text-center text-bold text-primary">{{ $product->tranprod_no }}</h3>
                     <div class="d-grid gap-2">
-                        <div align="center">Start of Date : <b>{{ date("d M, Y",strtotime($product->tranprod_date)); }}</b></div>
-                        <?php 
-                        $tgl1 = strtotime(date("Y-m-d")); 
-                        $tgl2 = strtotime($product->tranprod_outdate);                         
-                        $jarak = $tgl2 - $tgl1;                        
-                        $hari = $jarak / 60 / 60 / 24;
-                        if($hari<=7){$peringatan="bahaya";}else{$peringatan="aman";}?>
-                        <div align="center" class="<?=$peringatan;?>">Out of Date : <b>{{ date("d M, Y",strtotime($product->tranprod_outdate)); }}</b></div>
                         <div id="keterangan">
-                            <div>Silahkan transfer sejumlah <span style="color:blue!important;">Rp. {{number_format($product->product_sell,0,",",".")}}</span> ke Rekening Berikut:</div>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Bank Name</th>
-                                    <th>User</th>
-                                    <th>Bank No</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $banks = DB::table('bank')
-                                ->orderBy('bank_name')
-                                ->get();
-                                foreach ($banks as $bank) {?>
-                                <tr>
-                                    <td><?=$bank->bank_name;?></td>
-                                    <td><?=$bank->bank_user;?></td>
-                                    <td><?=$bank->bank_no;?></td>
-                                </tr>
-                                <?php }?>  
-                                </tbody>
-                            </table>
+                            <div>Isi data server anda:</div>                           
                         </div>
                         <div class="row" id="konfirmasi">
-                            <h1 class="col-md-12"> Konfirmasi Pembayaran </h1>
+                            <h1 class="col-md-12"> Data Server </h1>
                             <form method="post">
                             @csrf
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Bank Pengirim" name="transaction_bankpengirim">
+                                        <input type="text" class="form-control" placeholder="Nama Server (dilarang spasi)" name="tranprod_no">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Atas Nama" name="transaction_an">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="Rekening" name="transaction_rek">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="Bank Penerima" name="transaction_bankpenerima">
-                                    </div>
-                                    <div class="col">
-                                        <input type="number" class="form-control" placeholder="Nominal" name="transaction_pay">
+                                        <input type="text" class="form-control" placeholder="Keterangan" name="tranprod_note">
                                     </div>
                                     <div class="col">                                        
-                                        <input type="hidden" name="product_name" value="<?=$product->product_name;?>">
-                                        <input type="hidden" name="tranprod_id" value="<?=request()->get('id');?>">
+                                        <input type="hidden" name="product_id" value="<?=Request::get('product_id');?>">
                                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                                         <button type="submit" name="submit" value="OK" class="btn btn-success">Konfirmasi</button>
                                     </div>                                    
@@ -117,7 +68,6 @@
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
       
    

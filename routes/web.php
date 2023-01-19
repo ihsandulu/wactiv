@@ -17,7 +17,7 @@ use PhpParser\Node\Expr\New_;
 */
 
 Route::get('/', [Kontrol::class, 'index']);
-Route::get('/api/{fungsi}', function ($fungsi) {
+Route::any('/api/{fungsi}', function ($fungsi) {
     $app = new Api();
     return $app->callAction($fungsi, $parameters = array("adi", "dudi"));
 });

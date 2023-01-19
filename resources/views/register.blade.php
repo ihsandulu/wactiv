@@ -87,9 +87,9 @@
           <div class="col-md-6">          
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <a class="text-success mt-2"  style="float:right;" href="{{url('/redirectgoogle')}}">Google</a>
-          </div>
+          </div> -->
         </div>
       </form>
     </div>

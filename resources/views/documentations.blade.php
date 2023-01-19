@@ -30,7 +30,7 @@
        <!--  <div align="right" class="col-md-6 m-0"><a href="{{ url('/product') }}" class="btn btn-primary fa fa-plus"> Tambah Layanan</a></div> -->
     </div>
     
-    <ul class="nav nav-tabs">
+   <!--  <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link categoryproduct active bg-greendark" onclick="activcategory(this)" aria-current="page" href="<?=url("/documentations");?>">Semua</a>
         </li>
@@ -51,34 +51,29 @@
             $('#c'+a).addClass('bg-greendark');
         }
         activcategory(<?=request()->get("id");?>);
-    </script>
+    </script> -->
     <div class="row">
         <?php 
         DB::enableQueryLog();
 
         $products = DB::table('product')
         ->leftJoin("documentation","documentation.product_id","=","product.product_id")
-        ->where(function($q){
+       /*  ->where(function($q){
             if(isset($_GET["id"])){
                 $q->where("category_id",request()->get("id"));
             }
-        })
+        }) */
         ->orderBy('product_name','asc')
-        ->paginate(50);
+        // ->paginate(50);
        
         
-        // ->get();
+        ->get();
         // $query = DB::getQueryLog();
         // dd($query);
         // echo $products->toSql();die;
         ?>
+     
         <?php 
-        if(!isset($_GET["id"])){?>
-            <div class="col-md-12 border border-light border-3 rounded m-3 p-3 text-left">
-                <div class="fs-3 fw-bold">Dokumentasi Produk Qithy.my.id</div>
-                <div>Silahkan membuka tab yang sesuai dengan produk yang anda cari!</div>
-            </div>
-        <?php }else{
         foreach ($products as $product){?>
         <div class="col-md-12 p-1" >
             <div class="card p-3" >
@@ -93,7 +88,7 @@
             </div>
         </div>
         <?php }
-        }?>
+        ?>
     </div>
       
    

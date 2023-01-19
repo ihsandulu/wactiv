@@ -27,30 +27,10 @@
         <div class="col-md-6" >
             <h1 class="text-bold">Layanan</h1>
         </div>
-        <div align="right" class="col-md-6 m-0"><a href="{{ url('/products') }}" class="btn btn-primary fa fa-plus"> Tambah Layanan</a></div>
+        <div align="right" class="col-md-6 m-0"><a href="{{ url('/perpanjangan?product_id=1') }}" class="btn btn-primary fa fa-plus"> Tambah Layanan</a></div>
     </div>
     
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link categoryproduct active bg-greendark" onclick="activcategory(this)" aria-current="page" href="#">Semua</a>
-        </li>
-        <?php 
-            $categorys = DB::table('category')->get();
-        ?>
-        @foreach ($categorys as $category)
-        <li class="nav-item">
-          <a class="nav-link categoryproduct" onclick="activcategory(this)" aria-current="page" href="#">{{ $category->category_name }}</a>
-        </li>
-        @endforeach
-    </ul>
-    <script>
-        function activcategory(a){
-            $('.categoryproduct').removeClass('active');
-            $('.categoryproduct').removeClass('bg-greendark');
-            $(a).addClass('active');
-            $(a).addClass('bg-greendark');
-        }
-    </script>
+    
     <div class="row">
         <?php $products = DB::table('tranprod')
         ->leftJoin("product","product.product_id","=","tranprod.product_id")
@@ -66,12 +46,8 @@
                 <div class="card-body mt-4">
                     <h5 class="card-title text-center">{{ $product->product_name }}</h5>
                     <div class="d-grid gap-2">
-                        <div align="center">Out of Date : <br/>{{ date("d M, Y",strtotime($product->tranprod_outdate)); }}</div>
-                        <?php if($product->tranprod_active==1){?>
-                            <a href="{{ url("/layanandetail?id=".$product->tranprod_id) }}" class="btn btn-success btn-block">Lihat Detail</a>
-                        <?php }else{?>
-                            <a href="{{ url("/perpanjangan?id=".$product->tranprod_id) }}" class="btn btn-warning btn-block">Bayar</a>
-                        <?php }?>
+                        <div align="center">Server : {{ $product->tranprod_no; }}</div>
+                        <a href="{{ url("/layanandetail?id=".$product->tranprod_id) }}" class="btn btn-success btn-block">Lihat Detail</a>                       
                     </div>
                 </div>
             </div>
