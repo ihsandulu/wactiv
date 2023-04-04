@@ -12,12 +12,45 @@ class Modle extends Model
     public  function index($fungsi)
     {    
         $role=method_exists($this, $fungsi);
-        if($role){
-            $role = $this->$fungsi();
+        $roles = array();
+        if($role){  
+            $request = Request(); 
+            $roles = $this->$fungsi($request);
+            if(!isset($roles["message"])){
+                $roles["message"]="";
+            }      
         }else{
-            $role = array();
+            $roles = array();
         }
        
+        return $roles;
+    }
+    public function layanandetail($request){
+        $role = array();
+        $role["message"]="";
+        if(isset($_POST["forward_number"])){
+            $input["forward_number"]=$request->post("forward_number");
+            $input["tranprod_id"]=$request->post("tranprod_id");
+            $forward=DB::table("forward")
+            ->insertGetId($input);
+            if($forward){
+                $role["message"]="Nomor berhasil diinput.";
+            }else{
+                $role["message"]="Nomor gagal diinput.";
+            }
+        }
+        
+        if(isset($_POST["delete"])){
+            $forward=DB::table("forward")     
+            ->where("forward_id",$request->post("forward_id"))
+            ->delete();
+            if($forward){
+                $role["message"]="Nomor berhasil Didelete.";
+            }else{
+                $role["message"]="Nomor gagal Didelete.";
+            }
+        }
+
         return $role;
     }
     public function daftar($request){
@@ -243,10 +276,6 @@ class Modle extends Model
             $posisinya = $posisi->position_id;
         }
         return $posisinya;
-    }
-    public function layanandetail()
-    {
-        return array();
     }
     public function perpanjangan()
     {

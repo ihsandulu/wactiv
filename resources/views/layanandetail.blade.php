@@ -33,6 +33,51 @@
         </div>
         <div align="right" class="col-md-6 m-0 mb-3"><a href="{{ url('/layanan') }}" class="btn btn-warning fa fa-mail-forward"> Kembali</a></div>
     </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <form method="post" class="was-validated">
+                @csrf
+                <div class="mb-3 mt-3">
+                    <label for="uname" class="form-label">Forward Whatsapp:</label>
+                    <input type="tel" class="form-control" id="forward_number" placeholder="Enter Whatsapp" name="forward_number" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    <input type="hidden" name="tranprod_id" value="<?=$_GET["id"];?>"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-2">Action</th>
+                        <th>Forward Whatsapp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $forward=DB::table("forward")
+                    ->where("tranprod_id",$_GET["id"])
+                    ->get();
+                    foreach ($forward as $forward) {?>
+                    <tr>
+                        <td>
+                            <form method="post">      
+                                @csrf                      
+                                <button type="submit" name="delete" class="btn btn-danger btn-xs fa fa-close"></button>
+                                <input type="hidden" name="forward_id" value="<?=$forward->forward_id;?>"/>
+                            </form>
+                        </td>
+                        <td>
+                            <?=$forward->forward_number;?>
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </div>
+    </div>
    
     <div class="row">
         <?php $products = DB::table('tranprod')

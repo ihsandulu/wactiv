@@ -100,4 +100,24 @@ class Api extends Controller
             return response()->json($data, 401);
         }
     }
+
+    public function forward(){
+        $input["tranprod_no"]=request()->get("tranprod_no");
+        $forward=DB::table('forward')
+        ->leftJoin("tranprod","tranprod.tranprod_id","=","forward.tranprod_id")
+        ->where($input)
+        ->get();
+         
+        if($forward->count()>0){
+            foreach ($forward as $value) {
+                $data["forward_number"][]=$value->forward_number;
+            }
+            $data["status"]=true;
+            return response()->json($data, 200);    
+        }else{
+            $data["forward_number"]="";
+            $data["status"]=false;
+            return response()->json($data, 401);
+        }
+    }
 }
