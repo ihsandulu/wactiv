@@ -47,7 +47,7 @@
                     <h5 class="card-title text-center">{{ $product->product_name }}</h5>
                     <div class="d-grid gap-2">
                         <div align="center">Server : {{ $product->tranprod_no; }}</div>
-                        <a href="{{ url("/layanandetail?id=".$product->tranprod_id) }}" class="btn btn-success btn-block">Lihat Detail</a>                       
+                        <a href="{{ url("/layanandetail?id=".$product->tranprod_id."&layananid=".$product->tranprod_id."&layananname=".$product->tranprod_no) }}" class="btn btn-success btn-block">Lihat Detail</a>                       
                     </div>
                 </div>
             </div>

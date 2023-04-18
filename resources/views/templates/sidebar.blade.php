@@ -23,7 +23,7 @@
             
         
         <a class="list-group-item list-group-item-action list-group-item-light p-3 bg-secondary text-white disabled" href="#"> Umum </a> 
-        @endauth
+        @auth
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('/password') }}">Password</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('/layanan') }}">Layanan</a>
             <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ url('/transactions') }}">Transaksi</a>
