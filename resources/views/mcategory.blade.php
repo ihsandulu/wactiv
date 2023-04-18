@@ -50,13 +50,25 @@
     ?>
     <div class="row">
         <?php if (!isset($_GET['mcategory_id']) && !isset($_POST['new']) && !isset($_POST['edit'])) {
-            $coltitle = "col-10";
+            $coltitle = "col-6";
         } else {
             $coltitle = "col-10";
         } ?>
         <div class="<?= $coltitle; ?>">
             <h4 class="card-title"></h4>
-        </div>       
+        </div>      
+        <form method="get" action="layanan" class="col-2 mb-2">
+            @csrf
+            <div class="d-grid gap-2">
+                <button class="btn btn-secondary btn-lg" value="OK" style="">Layanan</button>
+            </div>
+        </form>      
+        <form method="get" action="layanandetail?id=<?=$_GET["layananid"];?>&layananid=<?=$_GET["layananid"];?>&layananname=<?=$_GET["layananname"];?>" class="col-2 mb-2">
+            @csrf
+            <div class="d-grid gap-2">
+                <button class="btn btn-secondary btn-lg" value="OK" style="">Server</button>
+            </div>
+        </form>    
         <?php if (!isset($_POST['new']) && !isset($_POST['edit']) && !isset($_GET['report'])) { ?>
             <form method="post" class="col-2 mb-2">
                 @csrf

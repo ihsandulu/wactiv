@@ -50,7 +50,7 @@
     ?>
     <div class="row">
         <?php if (!isset($_GET['member_id']) && !isset($_POST['new']) && !isset($_POST['edit'])) {
-            $coltitle = "col-8";
+            $coltitle = "col-6";
         } else {
             $coltitle = "col-10";
         } ?>
@@ -62,7 +62,16 @@
             <div class="d-grid gap-2">
                 <button class="btn btn-secondary btn-lg" value="OK" style="">Layanan</button>
             </div>
-        </form>
+        </form>       
+        <form method="get" action="layanandetail" class="col-2 mb-2">
+            @csrf
+            <div class="d-grid gap-2">
+                <button class="btn btn-secondary btn-lg" value="OK" style="">Server</button>
+                <input type="hidden" name="id" value="<?=$_GET["layananid"];?>" />
+                <input type="hidden" name="layananid" value="<?=$_GET["layananid"];?>" />
+                <input type="hidden" name="layananname" value="<?=$_GET["layananname"];?>" />
+            </div>
+        </form>     
         <?php if (!isset($_POST['new']) && !isset($_POST['edit']) && !isset($_GET['report'])) { ?>
             <form method="post" class="col-2 mb-2">
                 @csrf
