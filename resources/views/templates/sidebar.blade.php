@@ -17,6 +17,7 @@
             <?php if(isset($_GET["layananid"])){?>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3 bg-secondary text-white disabled" href="#"> Layanan Customer </a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?= url("/mcategory?default=OK&layananid=".$_GET["layananid"]."&layananname=".$_GET["layananname"]) ;?>"> Kategori Member </a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?= url("/member?default=OK&layananid=".$_GET["layananid"]."&layananname=".$_GET["layananname"]) ;?>"> Member </a>
             <?php }?>  
         
         @endauth
