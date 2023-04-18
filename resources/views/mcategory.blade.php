@@ -49,21 +49,21 @@
     }
     ?>
     <div class="row">
-        <?php if (!isset($_GET['category_id']) && !isset($_POST['new']) && !isset($_POST['edit'])) {
-            $coltitle = "col-md-10";
+        <?php if (!isset($_GET['mcategory_id']) && !isset($_POST['new']) && !isset($_POST['edit'])) {
+            $coltitle = "col-10";
         } else {
-            $coltitle = "col-md-10";
+            $coltitle = "col-10";
         } ?>
         <div class="<?= $coltitle; ?>">
-            <h4 class="card-title">Kategori Member</h4>
+            <h4 class="card-title"></h4>
         </div>       
         <?php if (!isset($_POST['new']) && !isset($_POST['edit']) && !isset($_GET['report'])) { ?>
-            <form method="post" class="col-md-2">
-            @csrf
-                <h1 class="page-header col-md-12">
-                    <button name="new" class="btn btn-info btn-block btn-lg" value="OK" style="">New</button>
-                    <input type="hidden" name="category_id" />
-                </h1>
+            <form method="post" class="col-2 mb-2">
+                @csrf
+                <div class="d-grid gap-2">
+                    <button name="new" class="btn btn-info btn-lg" value="OK" style="">New</button>
+                    <input type="hidden" name="mcategory_id" />
+                </div>
             </form>
         <?php } ?>
     </div>
@@ -72,10 +72,10 @@
         <div class="row">
             <?php if (isset($_POST['edit'])) {
                 $namabutton = 'name="change"';
-                $judul = "Update Category";
+                $judul = "Update Kategori Member";
             } else {
                 $namabutton = 'name="create"';
-                $judul = "Add Category";
+                $judul = "Add Kategori Member";
             } ?>
             <div class="col-md-12">
                 <h3><?= $judul; ?></h3>
@@ -83,15 +83,16 @@
             <form class="col-md-12" action="" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 mt-3">
-                    <label for="category_name" class="form-label">Category:</label>
-                    <input type="text" class="form-control" id="category_name" placeholder="Enter Category" name="category_name" value="<?=$posts["category_name"];?>">
+                    <label for="mcategory_name" class="form-label">Kategori Member:</label>
+                    <input type="text" class="form-control" id="mcategory_name" placeholder="Enter Kategori Member" name="mcategory_name" value="<?=$posts["mcategory_name"];?>">
                 </div>
-                <input type="hidden" name="category_id" value="<?= $posts["category_id"]; ?>" />
+                <input type="hidden" name="mcategory_id" value="<?= $posts["mcategory_id"]; ?>" />
+                <input type="hidden" name="tranprod_id" value="<?= $_GET["layananid"]; ?>" />
                 <button type="submit" id="submit" class="btn btn-primary col-md-5" <?= $namabutton; ?> value="OK">Submit</button>
                 <button type="button" class="btn btn-warning col-md-offset-1 col-md-5" onClick="pindah()">Back</button>
                 <script>
                     function pindah() {
-                        window.location.href = '<?= url("category"); ?>';
+                        window.location.href = '<?= $url = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>';
                     }
                 </script>
             </form>
@@ -126,36 +127,36 @@
                                 <th class="col-md-2">Action</th>
                             <?php } ?>
                             <th class="col-md-1">No.</th>
-                            <th>Category</th>
+                            <th>Kategori Member</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php                 
-                        $usr = DB::table("category")
-                        ->orderBy("category_id","DESC")
+                        $usr = DB::table("mcategory")
+                        ->orderBy("mcategory_id","DESC")
                             ->get();
                         $no = 1;
                         foreach ($usr as $usr) {
                         ?>
-                            <tr id="d<?= $usr->category_id; ?>">
+                            <tr id="d<?= $usr->mcategory_id; ?>">
                                 <?php if (!isset($_GET["report"])) { ?>
                                     <td>
                                         <div style="" class="row">
                                             <form method="post" class="btn-action col-md-6" style="">
                                             @csrf
                                                 <button class="btn btn-sm btn-danger btn-block delete" onclick="return confirm('You want to delete?');" name="delete" value="OK"><span class="fa fa-close" style="color:white;"></span> </button>
-                                                <input type="hidden" name="category_id" value="<?= $usr->category_id; ?>" />
+                                                <input type="hidden" name="mcategory_id" value="<?= $usr->mcategory_id; ?>" />
                                             </form>
                                             <form method="post" class="btn-action col-md-6" style="">
                                             @csrf
                                                 <button class="btn btn-sm btn-warning btn-block " name="edit" value="OK"><span class="fa fa-edit" style="color:white;"></span> </button>
-                                                <input type="hidden" name="category_id" value="<?= $usr->category_id; ?>" />
+                                                <input type="hidden" name="mcategory_id" value="<?= $usr->mcategory_id; ?>" />
                                             </form>
                                         </div>
                                     </td>
                                 <?php } ?>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $usr->category_name; ?></td>
+                                <td><?= $usr->mcategory_name; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -168,6 +169,7 @@
 @endsection
 @section('footer')
     <script>
+    $(".card-title").html("Kategori Member <?=ucfirst($_GET["layananname"]);?>");
     // alert();
     </script>
 @endsection
